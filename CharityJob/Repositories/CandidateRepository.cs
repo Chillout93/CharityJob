@@ -30,7 +30,7 @@ namespace CharityJob.Repositories
                     .Select(wh => new { Candidate = c, DaysExperience = ((wh.EndDate ?? DateTime.UtcNow) - wh.StartDate).TotalDays }))
                 .SelectMany(x => x)
                 .GroupBy(x => x.Candidate.Name)
-                .Select(x => new { x.Key, Candidate = x.First().Candidate, TotalDaysExperience = x.Sum(y => y.DaysExperience) })
+                .Select(x => new { Candidate = x.First().Candidate, TotalDaysExperience = x.Sum(y => y.DaysExperience) })
                 .Where(x => x.TotalDaysExperience >= totalDaysExperienceRequired)
                 .OrderByDescending(x => x.TotalDaysExperience)
                 .Select(x => x.Candidate)
